@@ -1,27 +1,24 @@
-import requests
-import time
+from aiogram import Bot, Dispatcher
+from aiogram.filters import Command 
+from aiogram.types import Message
 
+bot_token:str = '7718458852:AAEXau4ud0EvDmHa6jXC5z-vtG1ynGzmyZ0'
 
-API_URL = 'https://api.telegram.org/bot'
-BOT_TOKEN = '5424991242:AAGwomxQz1p46bRi_2m3V7kvJlt5RjK9xr0'
+bot = Bot(token=bot_token)
+dp = Dispatcher()
 
-offset = -2
-updates: dict
+@dp.message(Command(commands=['start']))
+async def process_start_commad(message: Message):
+    await message.answer('Hi bro.Welcome to russia.We a will create a great company.Now lets joking')
 
+@dp.message(Command(commands=['help']))
+async def process_help_command(message:Message):
+    await message.answer('Help yourself')
 
-def do_something() -> None:
-    print('Был апдейт')
+@dp.message()
+async def send_echo(message:Message):
+    await message.reply(text=message.text)
 
+if __name__ == '__main__':
+    dp.run_polling(bot)
 
-while True: 
-    start_time = time.time()
-    updates = requests.get(f'{API_URL}{BOT_TOKEN}/getUpdates?offset={offset + 1}').json()
-
-    if updates['result']:
-        for result in updates['result']:
-            offset = result['update_id']
-            do_something()
-
-    time.sleep(3)
-    end_time = time.time()
-    print(f'Время между запросами к Telegram Bot API: {end_time - start_time}')
