@@ -4,7 +4,7 @@ from aiogram.types import Message
 from aiohttp import ClientSession
 
 api_url = 'https://yesno.wtf/api'
-bot_token:str = '7395547960:AAGSpAKgd-9XWsXX42BTRCpJil5nR8YM2Tk'
+bot_token:str = ''
 
 bot = Bot(token=bot_token)
 dp = Dispatcher()
